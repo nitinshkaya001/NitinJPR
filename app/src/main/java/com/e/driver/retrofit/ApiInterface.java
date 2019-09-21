@@ -4,6 +4,7 @@ package com.e.driver.retrofit;
 import com.e.driver.models.Category.ServiceResponse;
 import com.e.driver.models.LoginMobile.OtpLoginResponse;
 import com.e.driver.models.SubCategory.SubCategoryResponse;
+import com.e.driver.models.SubmitOtp.SubmitOtpResponse;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -18,6 +19,10 @@ public interface ApiInterface {
 
     @GET("Account/LoginByMobile")
      Call<OtpLoginResponse>otpLogin(@Query("PhoneNumber") String mobileNumber);
+
+    @GET("Account/EnterOtp")
+    Call<SubmitOtpResponse>submitOtp(@Query("PhoneNumber") String phoneNumber,@Query("Otp") String otp);
+
 
     @GET(value = "Customer/GetCategories")
      Call<ServiceResponse>getService();

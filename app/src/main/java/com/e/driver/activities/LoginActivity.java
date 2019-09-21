@@ -1,5 +1,6 @@
 package com.e.driver.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,6 +14,8 @@ import com.e.driver.R;
 import com.e.driver.models.LoginMobile.OtpLoginResponse;
 import com.e.driver.retrofit.RestClient;
 import com.e.driver.retrofit.RetrofitClient;
+import com.e.driver.utils.Constants;
+import com.e.driver.utils.SamsPrefs;
 import com.e.driver.utils.Utils;
 
 import org.json.JSONException;
@@ -54,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
     private void LoginOtp() {
         mobileNo = edtMobNumber.getText().toString().trim();
 
-        if (TextUtils.isEmpty(mobileNo.trim()) && mobileNo.length()<= 10) {
+        if (TextUtils.isEmpty(mobileNo.trim()) && mobileNo.length() <= 10) {
 
             Utils.displayToast(getApplicationContext(), "Please Enter Valid Mobile Number");
         }
@@ -67,9 +70,11 @@ public class LoginActivity extends AppCompatActivity {
 
                     OtpLoginResponse otpLoginResponse = response.body();
 
-                    if (otpLoginResponse.getStatus() != null) {
+                    if (otpLoginResponse != null) {
 
-                        Toast.makeText(LoginActivity.this, ""+otpLoginResponse.getStatus().get(0).getStatusType(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, SubmitOtpActivity.class);
+                        SamsPrefs.putString(getApplicationContext(), "mobilenumber", mobileNo);
+                        startActivity(intent);
                     }
 
                 }

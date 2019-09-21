@@ -68,7 +68,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:textColor="@color/colorWhite"
-                    android:background="@color/colorLightBlue"
+                    android:background="@drawable/button_border"
                     />
 
             </LinearLayout>
@@ -120,7 +120,7 @@
                     android:layout_margin="5dp"
                     android:textColor="@color/colorWhite"
                     android:layout_gravity="center"
-                    android:background="@color/colorLightBlue"
+                    android:background="@drawable/button_border"
                     />
 
             </LinearLayout>
