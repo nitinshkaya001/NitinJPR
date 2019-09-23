@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.e.driver.R;
 import com.e.driver.models.Category.Category;
 import com.e.driver.models.Category.ServiceResponse;
+import com.e.driver.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 
@@ -24,11 +25,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     private List<Category> categoryList;
     OnClickCategoryClick clickCategoryClick;
 
+
+
     public CategoryAdapter(Context context) {
         this.context = context;
     }
-
-
     @NonNull
     @Override
     public CategoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -41,7 +42,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         Category category = categoryList.get(i);
 
-        Picasso.with(context).load( category.getImageUrl()).into(holder.categoryImage);
+        Picasso.with(context).load(Constants.BASE_URL+category.getImageUrl()).into(holder.categoryImage);
         holder.categoryName.setText("" +category.getCategoryName());
         holder.cardViewCategory.setOnClickListener(new View.OnClickListener() {
 
@@ -54,9 +55,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             }
         });
     }
-
-
-
     @Override
     public int getItemCount() {
         if (categoryList != null && categoryList.size() > 0) {

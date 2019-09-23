@@ -33,7 +33,7 @@ public class SubCategoryActivity extends AppCompatActivity implements SubCategor
         subCategoryResponse = new SubCategoryResponse();
         rv_SubCategory = findViewById(R.id.rv_SubCategory);
         rv_SubCategory.setLayoutManager(new GridLayoutManager(SubCategoryActivity.this,2));
-        subCategoryAdapter = new SubCategoryAdapter(SubCategoryActivity.this, subCategoryResponse.getData().getServiceList());
+        subCategoryAdapter = new SubCategoryAdapter(SubCategoryActivity.this);
         rv_SubCategory.setAdapter(subCategoryAdapter);
 
         if (getIntent().hasExtra(Constants.CAT_ID)){

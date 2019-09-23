@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.e.driver.R;
 import com.e.driver.models.SubCategory.ServiceList;
+import com.e.driver.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     private Context context;
     private List<ServiceList> subCategoryList;
 
-    public SubCategoryAdapter(Context context, List<ServiceList> subCategoryList) {
+    public SubCategoryAdapter(Context context) {
         this.context = context;
         this.subCategoryList = subCategoryList;
     }
@@ -35,7 +36,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         ServiceList serviceList = subCategoryList.get(i);
 
-        Picasso.with(context).load(serviceList.getImageUrl()).into(holder.serviceImage);
+        Picasso.with(context).load(Constants.BASE_URL+serviceList.getImageUrl()).into(holder.serviceImage);
 
         holder.serviceName.setText(serviceList.getServiceName());
         holder.servicePrice.setText("INR "+serviceList.getPrice());
