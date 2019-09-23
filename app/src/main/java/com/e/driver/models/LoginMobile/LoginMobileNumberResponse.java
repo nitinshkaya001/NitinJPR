@@ -1,10 +1,10 @@
 
-package com.e.driver.models.Category;
+package com.e.driver.models.LoginMobile;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ServiceResponse {
+public class LoginMobileNumberResponse {
 
     @SerializedName("Status_Type")
     @Expose

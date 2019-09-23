@@ -1,6 +1,5 @@
 package com.e.driver.activities;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,9 +8,8 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.e.driver.adapters.SubCategoryAdapter;
-import com.e.driver.models.Category.ServiceResponse;
-import com.e.driver.models.SubCategory.SubCategoryResponse;
 import com.e.driver.R;
+import com.e.driver.models.SubCategory.SubCategoryResponse;
 import com.e.driver.retrofit.RestClient;
 import com.e.driver.utils.Constants;
 import com.e.driver.utils.Utils;
@@ -30,10 +28,12 @@ public class SubCategoryActivity extends AppCompatActivity implements SubCategor
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_category);
+        getSupportActionBar().hide();
+
         subCategoryResponse = new SubCategoryResponse();
         rv_SubCategory = findViewById(R.id.rv_SubCategory);
         rv_SubCategory.setLayoutManager(new GridLayoutManager(SubCategoryActivity.this,2));
-        subCategoryAdapter = new SubCategoryAdapter(SubCategoryActivity.this, subCategoryResponse.getServiceList());
+        subCategoryAdapter = new SubCategoryAdapter(SubCategoryActivity.this, subCategoryResponse.getData().getServiceList());
         rv_SubCategory.setAdapter(subCategoryAdapter);
 
         if (getIntent().hasExtra(Constants.CAT_ID)){
@@ -55,8 +55,8 @@ public class SubCategoryActivity extends AppCompatActivity implements SubCategor
                    Utils.dismissProgressDialog();
                     subCategoryResponse=response.body();
 
-                    if (subCategoryResponse!=null && subCategoryResponse.getServiceList()!=null ){
-                        subCategoryAdapter.setCategryData(subCategoryResponse.getServiceList());
+                    if (subCategoryResponse!=null && subCategoryResponse.getData().getServiceList()!=null ){
+                        subCategoryAdapter.setCategryData(subCategoryResponse.getData().getServiceList());
                         subCategoryAdapter.notifyDataSetChanged();
 
                     }

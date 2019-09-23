@@ -6,10 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.e.driver.models.SubCategory.ServiceList;
 import com.e.driver.R;
+import com.e.driver.models.SubCategory.ServiceList;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -33,6 +35,8 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         ServiceList serviceList = subCategoryList.get(i);
 
+        Picasso.with(context).load(serviceList.getImageUrl()).into(holder.serviceImage);
+
         holder.serviceName.setText(serviceList.getServiceName());
         holder.servicePrice.setText("INR "+serviceList.getPrice());
 
@@ -52,11 +56,13 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView serviceName, servicePrice;
+        private ImageView serviceImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             serviceName = itemView.findViewById(R.id.tv_sub_category_name);
             servicePrice = itemView.findViewById(R.id.tv_sub_category_price);
+            serviceImage = itemView.findViewById(R.id.iv_sub_category);
 
         }
     }

@@ -24,7 +24,7 @@
             android:textStyle="bold"
             />
         <EditText
-            android:id="@+id/submitOtp"
+            android:id="@+id/enterOtp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter OTP here"

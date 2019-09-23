@@ -1,10 +1,10 @@
 
-package com.e.driver.models.Category;
+package com.e.driver.models.submit_otp;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ServiceResponse {
+public class LoginMobileOtpResponse {
 
     @SerializedName("Status_Type")
     @Expose

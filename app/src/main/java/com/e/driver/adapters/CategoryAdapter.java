@@ -1,7 +1,6 @@
 package com.e.driver.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -11,11 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.e.driver.activities.MainActivity;
-import com.e.driver.activities.SubCategoryActivity;
-import com.e.driver.models.Category.Category;
+
 import com.e.driver.R;
+import com.e.driver.models.Category.Category;
 import com.e.driver.models.Category.ServiceResponse;
+import com.squareup.picasso.Picasso;
+
 
 import java.util.List;
 
@@ -24,10 +24,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     private List<Category> categoryList;
     OnClickCategoryClick clickCategoryClick;
 
-    public CategoryAdapter(Context context, List<Category> categoryList) {
+    public CategoryAdapter(Context context) {
         this.context = context;
-        this.categoryList = categoryList;
     }
+
 
     @NonNull
     @Override
@@ -40,17 +40,22 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public void onBindViewHolder(@NonNull final ViewHolder holder, int i) {
 
         Category category = categoryList.get(i);
-        holder.categoryName.setText("" + category.getCategoryName());
+
+        Picasso.with(context).load( category.getImageUrl()).into(holder.categoryImage);
+        holder.categoryName.setText("" +category.getCategoryName());
         holder.cardViewCategory.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 if (clickCategoryClick != null) {
+
                     clickCategoryClick.onCategoryClick(holder.getAdapterPosition());
                 }
             }
         });
     }
+
+
 
     @Override
     public int getItemCount() {
