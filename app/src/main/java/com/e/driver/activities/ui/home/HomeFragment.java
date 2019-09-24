@@ -34,11 +34,10 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnClickCat
     private Context context;
     private CategoryAdapter categoryAdapter;
 
-    private HomeViewModel homeViewModel;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
          context=getActivity();
         rv_service = root.findViewById(R.id.rv_service);

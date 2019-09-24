@@ -60,6 +60,7 @@
                 android:layout_height="wrap_content"/>
             <EditText
                 android:id="@+id/choseDate"
+                android:focusable="false"
                 android:background="@drawable/edibox_border"
                 android:hint="Choose Date"
                 android:layout_marginTop="10dp"
@@ -142,7 +143,7 @@
 
 
             <EditText
-                android:id="@+id/AlterMobileNum"
+                android:id="@+id/alterMobileNum"
                 android:background="@drawable/edibox_border"
                 android:hint="Alternate Mobile No"
                 android:paddingLeft="10dp"
@@ -182,6 +183,7 @@
                 android:background="@drawable/edibox_border"
                 android:hint="Enter Pincode"
                 android:paddingLeft="10dp"
+                android:inputType="phone"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"/>
@@ -216,23 +218,23 @@
             <EditText
                 android:id="@+id/choseCity"
                 android:background="@drawable/edibox_border"
+                android:layout_marginBottom="150dp"
                 android:hint="Choose City"
                 android:drawableRight="@drawable/arrow_down_black_24dp"
                 android:paddingLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"/>
-
-            <Button
-                android:id="@+id/btnButton"
-                android:background="#2196F3"
-                android:textColor="#FAFAFA"
-                android:text="Book Now"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
         </LinearLayout>
 
     </ScrollView>
+    <Button
+        android:id="@+id/btnSubmit"
+        android:background="@color/colorLightBlue"
+        android:textColor="#FAFAFA"
+        android:layout_alignParentBottom="true"
+        android:text="Book Now"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>

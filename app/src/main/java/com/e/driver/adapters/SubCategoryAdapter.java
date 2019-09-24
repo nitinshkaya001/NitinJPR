@@ -42,7 +42,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         ServiceList serviceList = subCategoryList.get(i);
 
         if (TextUtils.isEmpty(serviceList.getImageUrl())){
-            Picasso.with(context).load(R.drawable.logo).into(holder.serviceImage);
+            Picasso.with(context).load(R.drawable.splash).into(holder.serviceImage);
         }else {
             Picasso.with(context).load(Constants.BASE_URL+serviceList.getImageUrl()).into(holder.serviceImage);
         }

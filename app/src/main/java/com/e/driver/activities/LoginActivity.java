@@ -132,10 +132,18 @@ public class LoginActivity extends AppCompatActivity {
                         Utils.dismissProgressDialog();
                         if (response.body() != null) {
 
+
+
+
                             Customer customer = response.body().getData().getCustomer();
                             if (customer.getRoleID().equalsIgnoreCase("3") || (customer.getRoleID().equalsIgnoreCase("1"))) {
                                 Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
                                 startActivity(intent);
+                                String Mobile=customer.getMobileNo();
+                                String Email=customer.getUserName();
+
+                                SamsPrefs.putString(getApplicationContext(),"mobileNumber",Mobile);
+                                SamsPrefs.putString(getApplicationContext(),"emailId",Email);
                             }
                             else if (customer.getRoleID().equalsIgnoreCase("2")){
 

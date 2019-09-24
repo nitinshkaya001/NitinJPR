@@ -32,6 +32,7 @@
             <TextView
                 android:id="@+id/tv_sub_category_name"
                 android:layout_marginTop="8dp"
+                android:textColor="@color/colorLightBlue"
                 android:text="@string/app_name"
                 android:gravity="center"
                 android:layout_width="match_parent"

@@ -69,6 +69,7 @@ public class SubmitOtpActivity extends AppCompatActivity {
                         LoginMobileOtpResponse loginMobileOtpResponse = response.body();
 
 
+
                         if (loginMobileOtpResponse.getData().getCustomer().getRoleID().equalsIgnoreCase("0") || loginMobileOtpResponse.getData().getCustomer().getRoleID().equalsIgnoreCase("3")) {
                             Intent intent = new Intent(SubmitOtpActivity.this, DashboardActivity.class);
                             startActivity(intent);

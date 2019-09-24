@@ -24,7 +24,7 @@ import com.e.driver.utils.SamsPrefs;
 public class DashboardActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    TextView mobile,Emailid;
+    TextView mobile,emailid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +45,11 @@ public class DashboardActivity extends AppCompatActivity {
 
         View header=navigationView.getHeaderView(0);
         mobile=header.findViewById(R.id.navTextViewMobile);
+        emailid=header.findViewById(R.id.nav_textViewEmail);
 
         mobile.setText(SamsPrefs.getString(getApplicationContext(),"mobileNumber"));
+        emailid.setText(SamsPrefs.getString(getApplicationContext(),"emailId"));
+
 
 
         // Passing each menu ID as a set of Ids because each
