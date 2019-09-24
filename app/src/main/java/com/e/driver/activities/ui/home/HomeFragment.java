@@ -1,14 +1,22 @@
-package com.e.driver.activities;
+package com.e.driver.activities.ui.home;
+
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.e.driver.adapters.CategoryAdapter;
 import com.e.driver.R;
+import com.e.driver.activities.MainActivity;
+import com.e.driver.activities.SubCategoryActivity;
+import com.e.driver.adapters.CategoryAdapter;
 import com.e.driver.models.Category.ServiceResponse;
 import com.e.driver.retrofit.RestClient;
 import com.e.driver.utils.Constants;
@@ -18,33 +26,37 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements CategoryAdapter.OnClickCategoryClick {
+
+public class HomeFragment extends Fragment implements CategoryAdapter.OnClickCategoryClick{
 
     ServiceResponse serviceResponse;
     RecyclerView rv_service;
     private Context context;
-    private  CategoryAdapter categoryAdapter;
+    private CategoryAdapter categoryAdapter;
 
+    private HomeViewModel homeViewModel;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
-        rv_service = findViewById(R.id.rv_service);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_home, container, false);
+         context=getActivity();
+        rv_service = root.findViewById(R.id.rv_service);
         serviceResponse = new ServiceResponse();
-        //setAdapter
-        rv_service.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
-        categoryAdapter = new CategoryAdapter(MainActivity.this);
-       // categoryAdapter.setOnCategoryClickListener(this);
+
+        rv_service.setLayoutManager(new GridLayoutManager(context, 2));
+        categoryAdapter = new CategoryAdapter(context);
+        categoryAdapter.setOnCategoryClickListener(this);
         rv_service.setAdapter(categoryAdapter);
 
-        if (Utils.isInternetConnected(this)) {
-            Utils.showProgressDialog(this);
+        if (Utils.isInternetConnected(context)) {
+            Utils.showProgressDialog(context);
             getAllcategories();
         } else {
-            Toast.makeText(this, "Please check your internet connection", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_SHORT).show();
         }
+
+        return root;
     }
 
     private void getAllcategories() {
@@ -72,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
 
     @Override
     public void onCategoryClick(int position) {
-        Intent intent = new Intent(this,SubCategoryActivity.class);
+        Intent intent = new Intent(context, SubCategoryActivity.class);
         intent.putExtra(Constants.CAT_ID,serviceResponse.getData().getCategories().get(position).getCategoryId());
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

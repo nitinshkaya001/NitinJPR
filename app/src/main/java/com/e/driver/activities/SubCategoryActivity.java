@@ -1,5 +1,6 @@
 package com.e.driver.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -75,9 +76,9 @@ public class SubCategoryActivity extends AppCompatActivity implements SubCategor
     public void onSubCategoryClick(int position) {
         Toast.makeText(this, "Coming Soon", Toast.LENGTH_LONG).show();
 
-//        Intent intent = new Intent(this,SubCategoryActivity.class);
-//        intent.putExtra(Constants.CAT_ID,serviceResponse.getCategories().get(position).getCategoryId());
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        startActivity(intent);
+      /* Intent intent = new Intent(this,BookRequestActivity.class);
+       intent.putExtra(Constants.SUB_CAT_ID,subCategoryResponse.getData().getServiceList().get(position).getServiceListId());
+       intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+       startActivity(intent);*/
     }
 }

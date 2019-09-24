@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.e.driver.R;
 import com.e.driver.models.Category.Category;
-import com.e.driver.models.Category.ServiceResponse;
 import com.e.driver.utils.Constants;
 import com.squareup.picasso.Picasso;
 

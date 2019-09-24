@@ -74,7 +74,7 @@ public class SubmitOtpActivity extends AppCompatActivity {
                             startActivity(intent);
 
                         } else if (loginMobileOtpResponse.getData().getCustomer().getRoleID().equalsIgnoreCase("1")) {
-                            Intent intent = new Intent(SubmitOtpActivity.this, MainActivity.class);
+                            Intent intent = new Intent(SubmitOtpActivity.this,DashboardActivity.class);
                             startActivity(intent);
                         }
 

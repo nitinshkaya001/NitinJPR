@@ -134,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             Customer customer = response.body().getData().getCustomer();
                             if (customer.getRoleID().equalsIgnoreCase("3") || (customer.getRoleID().equalsIgnoreCase("1"))) {
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
                                 startActivity(intent);
                             }
                             else if (customer.getRoleID().equalsIgnoreCase("2")){
