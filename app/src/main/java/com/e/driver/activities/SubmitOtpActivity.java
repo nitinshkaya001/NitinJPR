@@ -70,7 +70,7 @@ public class SubmitOtpActivity extends AppCompatActivity {
 
 
                         if (loginMobileOtpResponse.getData().getCustomer().getRoleID().equalsIgnoreCase("0") || loginMobileOtpResponse.getData().getCustomer().getRoleID().equalsIgnoreCase("3")) {
-                            Intent intent = new Intent(SubmitOtpActivity.this, BookRequestActivity.class);
+                            Intent intent = new Intent(SubmitOtpActivity.this, DashboardActivity.class);
                             startActivity(intent);
 
                         } else if (loginMobileOtpResponse.getData().getCustomer().getRoleID().equalsIgnoreCase("1")) {
