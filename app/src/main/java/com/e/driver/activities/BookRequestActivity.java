@@ -10,6 +10,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.e.driver.R;
+import com.e.driver.utils.SamsPrefs;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -53,6 +54,8 @@ public class BookRequestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_request);
         getSupportActionBar().hide();
         ButterKnife.bind(this);
+
+        choseCategory.setText(SamsPrefs.getString(getApplicationContext(),""));
 
          calendar=Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date=new DatePickerDialog.OnDateSetListener() {

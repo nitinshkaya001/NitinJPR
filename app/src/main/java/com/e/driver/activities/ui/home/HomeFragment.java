@@ -20,6 +20,7 @@ import com.e.driver.adapters.CategoryAdapter;
 import com.e.driver.models.Category.ServiceResponse;
 import com.e.driver.retrofit.RestClient;
 import com.e.driver.utils.Constants;
+import com.e.driver.utils.SamsPrefs;
 import com.e.driver.utils.Utils;
 
 import retrofit2.Call;
@@ -42,7 +43,6 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnClickCat
          context=getActivity();
         rv_service = root.findViewById(R.id.rv_service);
         serviceResponse = new ServiceResponse();
-
         rv_service.setLayoutManager(new GridLayoutManager(context, 2));
         categoryAdapter = new CategoryAdapter(context);
         categoryAdapter.setOnCategoryClickListener(this);
@@ -65,7 +65,6 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnClickCat
                 Utils.dismissProgressDialog();
                 if (response.code() == 200) {
                     serviceResponse = response.body();
-
                     if (serviceResponse.getStatusType().equalsIgnoreCase("Success")  && serviceResponse.getData().getCategories() != null) {
                         categoryAdapter.setCategryData(serviceResponse.getData().getCategories());
                         categoryAdapter.notifyDataSetChanged();
@@ -85,6 +84,7 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnClickCat
     public void onCategoryClick(int position) {
         Intent intent = new Intent(context, SubCategoryActivity.class);
         intent.putExtra(Constants.CAT_ID,serviceResponse.getData().getCategories().get(position).getCategoryId());
+        SamsPrefs.putString(getActivity(),"categoryName",serviceResponse.getData().getCategories().get(position).getCategoryName());
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
 
