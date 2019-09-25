@@ -13,6 +13,7 @@ import com.e.driver.R;
 import com.e.driver.models.SubCategory.SubCategoryResponse;
 import com.e.driver.retrofit.RestClient;
 import com.e.driver.utils.Constants;
+import com.e.driver.utils.SamsPrefs;
 import com.e.driver.utils.Utils;
 
 import retrofit2.Call;
@@ -76,9 +77,12 @@ public class SubCategoryActivity extends AppCompatActivity implements SubCategor
     public void onSubCategoryClick(int position) {
         Toast.makeText(this, "Coming Soon", Toast.LENGTH_LONG).show();
 
-      /* Intent intent = new Intent(this,BookRequestActivity.class);
+
+
+       Intent intent = new Intent(this,BookRequestActivity.class);
        intent.putExtra(Constants.SUB_CAT_ID,subCategoryResponse.getData().getServiceList().get(position).getServiceListId());
+       intent.putExtra(Constants.SUB_CAT_NAME,subCategoryResponse.getData().getServiceList().get(position).getServiceName());
        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-       startActivity(intent);*/
+       startActivity(intent);
     }
 }

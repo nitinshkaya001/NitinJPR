@@ -2,9 +2,11 @@ package com.e.driver.retrofit;
 
 
 import com.e.driver.models.Category.ServiceResponse;
+import com.e.driver.models.GetState.StateResponse;
 import com.e.driver.models.LoginEmail.LoginEmailResponse;
 import com.e.driver.models.LoginMobile.LoginMobileNumberResponse;
 import com.e.driver.models.SubCategory.SubCategoryResponse;
+import com.e.driver.models.TimeSlote.TimeSloteResponse;
 import com.e.driver.models.submit_otp.LoginMobileOtpResponse;
 
 import retrofit2.Call;
@@ -33,6 +35,12 @@ public interface ApiInterface {
 
     @GET("http://samarthansapi.the-sams.com/api/Account/Login")
     Call<LoginEmailResponse>loginEmail(@Query("email") String email, @Query("password") String password);
+
+    @GET("Customer/GetTimeSlot")
+    Call<TimeSloteResponse>getTime();
+
+    @GET("Customer/GetState")
+    Call<StateResponse>getState();
 
 
 }

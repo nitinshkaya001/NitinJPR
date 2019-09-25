@@ -17,6 +17,7 @@ import com.e.driver.activities.BookRequestActivity;
 import com.e.driver.activities.DashboardActivity;
 import com.e.driver.models.SubCategory.ServiceList;
 import com.e.driver.utils.Constants;
+import com.e.driver.utils.SamsPrefs;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -40,7 +41,6 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         ServiceList serviceList = subCategoryList.get(i);
-
         if (TextUtils.isEmpty(serviceList.getImageUrl())){
             Picasso.with(context).load(R.drawable.splash).into(holder.serviceImage);
         }else {

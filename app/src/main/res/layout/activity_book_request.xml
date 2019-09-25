@@ -25,7 +25,7 @@
             <EditText
                 android:id="@+id/choseCategory"
                 android:background="@drawable/edibox_border"
-                android:drawableRight="@drawable/arrow_down_black_24dp"
+                android:focusable="false"
                 android:hint="Choose Category"
                 android:layout_marginTop="10dp"
                 android:paddingLeft="10dp"
@@ -45,7 +45,7 @@
                 android:id="@+id/choseService"
                 android:background="@drawable/edibox_border"
                 android:hint="Choose Service"
-                android:drawableRight="@drawable/arrow_down_black_24dp"
+                android:focusable="false"
                 android:layout_marginTop="10dp"
                 android:paddingLeft="10dp"
                 android:layout_width="match_parent"
@@ -75,8 +75,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-
             <EditText
+
                 android:id="@+id/choseTime"
                 android:background="@drawable/edibox_border"
                 android:hint="Choose Time"

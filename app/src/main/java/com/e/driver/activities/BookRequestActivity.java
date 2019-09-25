@@ -10,6 +10,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.e.driver.R;
+import com.e.driver.models.GetState.StateResponse;
+import com.e.driver.models.TimeSlote.TimeSloteResponse;
+import com.e.driver.retrofit.RestClient;
 import com.e.driver.utils.SamsPrefs;
 
 import java.text.SimpleDateFormat;
@@ -18,6 +21,9 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BookRequestActivity extends AppCompatActivity {
     @BindView(R.id.choseCategory)
@@ -47,6 +53,7 @@ public class BookRequestActivity extends AppCompatActivity {
     @BindView(R.id.btnSubmit)
     Button btnSubmit;
     Calendar calendar;
+    String SubCatName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +62,27 @@ public class BookRequestActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         ButterKnife.bind(this);
 
-        choseCategory.setText(SamsPrefs.getString(getApplicationContext(),""));
+        choseCategory.setText(SamsPrefs.getString(getApplicationContext(),"categoryName"));
+        //choseCategory.setEnabled(false);
+        choseService.setText(SamsPrefs.getString(getApplicationContext(),"subCategoryName"));
+        //choseService.setEnabled(false);
+
+        choseTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                getTimeSlot();
+            }
+        });
+
+        choseState.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                getSelectState();
+
+            }
+        });
 
          calendar=Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date=new DatePickerDialog.OnDateSetListener() {
@@ -67,7 +94,7 @@ public class BookRequestActivity extends AppCompatActivity {
         calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
         updateLabel();
     }
-};
+        };
       choseDate.setOnTouchListener(new View.OnTouchListener() {
           @Override
           public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -81,6 +108,7 @@ public class BookRequestActivity extends AppCompatActivity {
 
     }
 
+
     private void updateLabel() {
 
         String myFormat="MM/dd/yyyy";
@@ -88,6 +116,53 @@ public class BookRequestActivity extends AppCompatActivity {
         choseDate.setText(sdf.format(calendar.getTime()));
 
     }
+
+    private void getTimeSlot() {
+
+        RestClient.timeSlot(new Callback<TimeSloteResponse>() {
+            @Override
+            public void onResponse(Call<TimeSloteResponse> call, Response<TimeSloteResponse> response) {
+
+                TimeSloteResponse timeSloteResponse=response.body();
+                if (timeSloteResponse.getStatusType().equalsIgnoreCase("Success")){
+
+
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<TimeSloteResponse> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    private void getSelectState() {
+
+        RestClient.selectState(new Callback<StateResponse>() {
+            @Override
+            public void onResponse(Call<StateResponse> call, Response<StateResponse> response) {
+
+                StateResponse stateResponse=response.body();
+                if (stateResponse.getStatusType().equalsIgnoreCase("Success")){
+
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<StateResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
 
 
 }
