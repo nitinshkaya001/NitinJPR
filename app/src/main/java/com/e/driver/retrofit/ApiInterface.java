@@ -7,6 +7,7 @@ import com.e.driver.models.LoginEmail.LoginEmailResponse;
 import com.e.driver.models.LoginMobile.LoginMobileNumberResponse;
 import com.e.driver.models.SubCategory.SubCategoryResponse;
 import com.e.driver.models.TimeSlote.TimeSloteResponse;
+import com.e.driver.models.cities.CityListResponce;
 import com.e.driver.models.submit_otp.LoginMobileOtpResponse;
 
 import retrofit2.Call;
@@ -42,5 +43,6 @@ public interface ApiInterface {
     @GET("Customer/GetState")
     Call<StateResponse>getState();
 
-
+    @GET("Customer/GetCity")
+    Call<CityListResponce> getCity(@Query("state_id") String st_id);
 }

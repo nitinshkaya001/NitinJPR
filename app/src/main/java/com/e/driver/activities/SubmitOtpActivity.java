@@ -13,6 +13,7 @@ import com.e.driver.R;
 import com.e.driver.models.submit_otp.LoginMobileOtpResponse;
 import com.e.driver.retrofit.RestClient;
 
+import com.e.driver.utils.Constants;
 import com.e.driver.utils.SamsPrefs;
 import com.e.driver.utils.Utils;
 
@@ -72,12 +73,18 @@ public class SubmitOtpActivity extends AppCompatActivity {
 
                         if (loginMobileOtpResponse.getData().getCustomer().getRoleID().equalsIgnoreCase("0") || loginMobileOtpResponse.getData().getCustomer().getRoleID().equalsIgnoreCase("3")) {
                             Intent intent = new Intent(SubmitOtpActivity.this, DashboardActivity.class);
+                            SamsPrefs.putBoolean(SubmitOtpActivity.this, Constants.LOGGEDIN,true);
                             startActivity(intent);
 
                         } else if (loginMobileOtpResponse.getData().getCustomer().getRoleID().equalsIgnoreCase("1")) {
                             Intent intent = new Intent(SubmitOtpActivity.this,DashboardActivity.class);
                             startActivity(intent);
+                        }else if (loginMobileOtpResponse.getData().getCustomer().getRoleID().equalsIgnoreCase("2")){
+                            SamsPrefs.putBoolean(SubmitOtpActivity.this, Constants.ROLE,true);
+                            Intent intent = new Intent(SubmitOtpActivity.this,DashboardActivity.class);
+                            startActivity(intent);
                         }
+
 
                     }
 

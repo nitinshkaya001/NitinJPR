@@ -85,10 +85,8 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(LoginActivity.this, SubmitOtpActivity.class);
                             SamsPrefs.putString(getApplicationContext(), "mobileNumber", mobileNo);
                             startActivity(intent);
-
-
                         } else  {
-                            Toast.makeText(LoginActivity.this, "eter valid otp", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Enter valid otp", Toast.LENGTH_SHORT).show();
                         }
 
                     }

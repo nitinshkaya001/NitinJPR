@@ -6,6 +6,7 @@ import com.e.driver.models.LoginEmail.LoginEmailResponse;
 import com.e.driver.models.LoginMobile.LoginMobileNumberResponse;
 import com.e.driver.models.SubCategory.SubCategoryResponse;
 import com.e.driver.models.TimeSlote.TimeSloteResponse;
+import com.e.driver.models.cities.CityListResponce;
 import com.e.driver.models.submit_otp.LoginMobileOtpResponse;
 
 import retrofit2.Callback;
@@ -41,6 +42,11 @@ public class RestClient {
     public static void selectState(Callback<StateResponse>callback){
 
        RetrofitClient.getClient().getState().enqueue(callback);
+    }
+
+    public static void selectCity(String st_id,Callback<CityListResponce>callback){
+
+       RetrofitClient.getClient().getCity(st_id).enqueue(callback);
     }
 
 

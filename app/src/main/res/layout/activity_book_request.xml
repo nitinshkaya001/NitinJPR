@@ -22,7 +22,7 @@
                 android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-            <EditText
+            <Spinner
                 android:id="@+id/choseCategory"
                 android:background="@drawable/edibox_border"
                 android:focusable="false"
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"/>
 
 
-            <EditText
+            <Spinner
                 android:id="@+id/choseService"
                 android:background="@drawable/edibox_border"
                 android:hint="Choose Service"
@@ -75,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <EditText
+            <Spinner
 
                 android:id="@+id/choseTime"
                 android:background="@drawable/edibox_border"
@@ -197,7 +197,7 @@
                 android:layout_height="wrap_content"/>
 
 
-            <EditText
+            <Spinner
                 android:id="@+id/choseState"
                 android:background="@drawable/edibox_border"
                 android:hint="Choose Your State"
@@ -215,7 +215,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <EditText
+            <Spinner
                 android:id="@+id/choseCity"
                 android:background="@drawable/edibox_border"
                 android:layout_marginBottom="150dp"
