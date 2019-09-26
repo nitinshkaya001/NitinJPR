@@ -4,10 +4,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="18dp"
         android:id="@+id/rv_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_cat_Submit"
+        android:background="@color/colorLightBlue"
+        android:textColor="#FAFAFA"
+        android:layout_alignParentBottom="true"
+        android:text="Book Now"
+        android:textAllCaps="false"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 </RelativeLayout>

@@ -5,7 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.e.driver.adapters.SubCategoryAdapter;
@@ -26,14 +30,31 @@ public class SubCategoryActivity extends AppCompatActivity implements SubCategor
     SubCategoryResponse subCategoryResponse;
     private SubCategoryAdapter subCategoryAdapter;
     String cat_id;
+   private Toolbar toolbar;
+    private TextView mtitle;
+    private ImageView imageViewTool;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_category);
         getSupportActionBar().hide();
 
-        subCategoryResponse = new SubCategoryResponse();
+        toolbar=findViewById(R.id.toolbar_about);
+        mtitle=toolbar.findViewById(R.id.toolbar_title);
+        imageViewTool=toolbar.findViewById(R.id.ivBackArrow);
         rv_SubCategory = findViewById(R.id.rv_SubCategory);
+
+        mtitle.setText("Sub Category");
+        imageViewTool.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                onBackPressed();
+
+            }
+        });
+
+        subCategoryResponse = new SubCategoryResponse();
         rv_SubCategory.setLayoutManager(new GridLayoutManager(SubCategoryActivity.this,2));
         subCategoryAdapter = new SubCategoryAdapter(SubCategoryActivity.this);
         rv_SubCategory.setAdapter(subCategoryAdapter);

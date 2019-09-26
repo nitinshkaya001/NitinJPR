@@ -11,9 +11,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.e.driver.R;
+import com.e.driver.activities.BookRequestActivity;
 import com.e.driver.activities.MainActivity;
 import com.e.driver.activities.SubCategoryActivity;
 import com.e.driver.adapters.CategoryAdapter;
@@ -32,6 +34,7 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnClickCat
 
     ServiceResponse serviceResponse;
     RecyclerView rv_service;
+    private Button btn_CategorySubmit;
     private Context context;
     private CategoryAdapter categoryAdapter;
 
@@ -41,6 +44,7 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnClickCat
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
          context=getActivity();
+         btn_CategorySubmit=root.findViewById(R.id.btn_cat_Submit);
         rv_service = root.findViewById(R.id.rv_service);
         serviceResponse = new ServiceResponse();
         rv_service.setLayoutManager(new GridLayoutManager(context, 2));
@@ -54,6 +58,16 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnClickCat
         } else {
             Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_SHORT).show();
         }
+
+        btn_CategorySubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent=new Intent(getActivity(), BookRequestActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
         return root;
     }

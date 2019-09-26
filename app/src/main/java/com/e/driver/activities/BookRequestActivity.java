@@ -3,13 +3,16 @@ package com.e.driver.activities;
 import android.app.DatePickerDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.e.driver.R;
 import com.e.driver.adapters.CategoryBookingAdapter;
@@ -72,6 +75,9 @@ public class BookRequestActivity extends AppCompatActivity {
     private String stateName, state_id;
     private String cityName, city_id;
     private String slotName, slot_id;
+    private Toolbar toolbar;
+    private TextView mtitle;
+    private ImageView imageViewTool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +86,20 @@ public class BookRequestActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         ButterKnife.bind(this);
         getAllcategories();
-
         getSelectState();
         getTimeSlot();
+
+        toolbar=findViewById(R.id.toolbar_about);
+        mtitle=toolbar.findViewById(R.id.toolbar_title);
+        imageViewTool=toolbar.findViewById(R.id.ivBackArrow);
+        mtitle.setText("Booking Request");
+        imageViewTool.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
 
         calendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -94,13 +111,12 @@ public class BookRequestActivity extends AppCompatActivity {
                 updateLabel();
             }
         };
+
         choseDate.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-
                 new DatePickerDialog(BookRequestActivity.this, date, calendar.get(Calendar.YEAR),
                         calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-
                 return false;
             }
         });
@@ -109,11 +125,9 @@ public class BookRequestActivity extends AppCompatActivity {
 
 
     private void updateLabel() {
-
         String myFormat = "MM/dd/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.UK);
         choseDate.setText(sdf.format(calendar.getTime()));
-
     }
 
     private void getTimeSlot() {

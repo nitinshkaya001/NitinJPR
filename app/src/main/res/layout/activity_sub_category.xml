@@ -6,7 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".activities.SubCategoryActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_about"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/colorLightBlue"
+        >
+        <ImageView
+            android:id="@+id/ivBackArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/left_arrow"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Toolbar Title"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:layout_marginLeft="45dp"
+            android:id="@+id/toolbar_title"
+            />
+
+
+    </android.support.v7.widget.Toolbar>
+
     <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/toolbar_about"
         android:layout_margin="10dp"
         android:id="@+id/rv_SubCategory"
         android:layout_width="match_parent"
