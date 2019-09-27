@@ -10,6 +10,7 @@ import com.e.driver.models.TimeSlote.TimeSloteResponse;
 import com.e.driver.models.cities.CityListResponce;
 import com.e.driver.models.submit_otp.LoginMobileOtpResponse;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -19,30 +20,52 @@ import retrofit2.http.Query;
 public interface ApiInterface {
 
 
-    @GET("Account/LoginByMobile")
-     Call<LoginMobileNumberResponse>otpLogin(@Query("PhoneNumber") String mobileNumber);
+    @GET("api/Account/LoginByMobile")
+    Call<LoginMobileNumberResponse> otpLogin(@Query("PhoneNumber") String mobileNumber);
 
-    @GET("http://samarthansapi.the-sams.com/api/Account/EnterOtp")
-    Call<LoginMobileOtpResponse>otpSubmit(@Query("PhoneNumber") String phonenumber, @Query("Otp") String otp);
+    @GET("api/Account/EnterOtp")
+    Call<LoginMobileOtpResponse> otpSubmit(@Query("PhoneNumber") String phonenumber, @Query("Otp") String otp);
 
 
     @Headers({"AuthToken: 12345", "LoginID: 1", "MobNo:  8586818454"})
-    @POST( "Customer/GetCategories")
-     Call<ServiceResponse>getService();
+    @POST("api/Customer/GetCategories")
+    Call<ServiceResponse> getService();
 
-    @GET("Customer/GetService")
-    Call<SubCategoryResponse>getSubCategory(@Query("category_id") String category_id);
+    @GET("api/Customer/GetService")
+    Call<SubCategoryResponse> getSubCategory(@Query("category_id") String category_id);
 
 
-    @GET("http://samarthansapi.the-sams.com/api/Account/Login")
-    Call<LoginEmailResponse>loginEmail(@Query("email") String email, @Query("password") String password);
+    @GET("api/Account/Login")
+    Call<LoginEmailResponse> loginEmail(@Query("email") String email, @Query("password") String password);
 
-    @GET("Customer/GetTimeSlot")
-    Call<TimeSloteResponse>getTime();
+    @GET("api/Customer/GetTimeSlot")
+    Call<TimeSloteResponse> getTime();
 
-    @GET("Customer/GetState")
-    Call<StateResponse>getState();
+    @GET("api/Customer/GetState")
+    Call<StateResponse> getState();
 
-    @GET("Customer/GetCity")
+    @GET("api/Customer/GetCity")
     Call<CityListResponce> getCity(@Query("state_id") String st_id);
+
+    @GET("api/Booking/BookService")
+    Call<ResponseBody> bookNewService(@Query("cust_id") String cust_id,
+                                      @Query("cust_name") String cust_name,
+                                      @Query("cust_email") String cust_email,
+                                      @Query("cust_login_mob") String cust_login_mob,
+                                      @Query("cust_alter_mob") String cust_alter_mob,
+                                      @Query("ctype_id") String ctype_id,
+                                      @Query("cust_address") String cust_address,
+                                      @Query("cust_landmark") String cust_landmark,
+                                      @Query("cust_pincode") String cust_pincode,
+                                      @Query("city_id") String city_id,
+                                      @Query("state_id") String state_id,
+                                      @Query("price") String price,
+                                      @Query("prime_member_discount") String prime_member_discount,
+                                      @Query("booking_date") String booking_date,
+                                      @Query("time_slot_id") String time_slot_id,
+                                      @Query("created_by") String created_by,
+                                      @Query("modified_by") String modified_by,
+                                      @Query("service_category_id") String service_category_id,
+                                      @Query("service_list_id") String service_list_id);
+
 }

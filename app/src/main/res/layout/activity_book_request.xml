@@ -6,36 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activities.BookRequestActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_about"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:minHeight="?attr/actionBarSize"
-        android:background="@color/colorLightBlue"
-        >
-        <ImageView
-            android:id="@+id/ivBackArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/left_arrow"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Toolbar Title"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/colorWhite"
-            android:layout_marginLeft="45dp"
-            android:id="@+id/toolbar_title"
-            />
-
-
-    </android.support.v7.widget.Toolbar>
-
     <ScrollView
-        android:layout_below="@+id/toolbar_about"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -54,7 +25,6 @@
             <Spinner
                 android:id="@+id/choseCategory"
                 android:background="@drawable/edibox_border"
-
                 android:focusable="false"
                 android:hint="Choose Category"
                 android:layout_marginTop="10dp"
@@ -88,6 +58,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
             <EditText
                 android:id="@+id/choseDate"
                 android:focusable="false"
@@ -142,8 +113,6 @@
                 android:id="@+id/enterMobile"
                 android:background="@drawable/edibox_border"
                 android:hint="Enter Your Mobile Number"
-                android:inputType="phone"
-                android:maxLength="10"
                 android:paddingLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
@@ -178,8 +147,6 @@
                 android:id="@+id/alterMobileNum"
                 android:background="@drawable/edibox_border"
                 android:hint="Alternate Mobile No"
-                android:inputType="phone"
-                android:maxLength="10"
                 android:paddingLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
@@ -218,7 +185,6 @@
                 android:hint="Enter Pincode"
                 android:paddingLeft="10dp"
                 android:inputType="phone"
-                android:maxLength="6"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"/>

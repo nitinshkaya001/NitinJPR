@@ -1,8 +1,8 @@
 package com.e.driver.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +14,7 @@ import com.e.driver.models.LoginEmail.Customer;
 import com.e.driver.models.LoginEmail.LoginEmailResponse;
 import com.e.driver.models.LoginMobile.LoginMobileNumberResponse;
 import com.e.driver.retrofit.RestClient;
+import com.e.driver.utils.Constants;
 import com.e.driver.utils.SamsPrefs;
 import com.e.driver.utils.Utils;
 
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @BindView(R.id.loginBtn)
     Button btn_login;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +85,10 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (response.body().getStatusType().equalsIgnoreCase("Success")) {
                             Intent intent = new Intent(LoginActivity.this, SubmitOtpActivity.class);
-                            SamsPrefs.putString(getApplicationContext(), "mobileNumber", mobileNo);
+                            SamsPrefs.putString(getApplicationContext(), Constants.EMAIL, emailId.getText().toString());
+                            SamsPrefs.putString(getApplicationContext(), Constants.MOBILE_NUMBER, edtMobNumber.getText().toString());
                             startActivity(intent);
-                        } else  {
+                        } else {
                             Toast.makeText(LoginActivity.this, "Enter valid otp", Toast.LENGTH_SHORT).show();
                         }
 
@@ -130,27 +133,23 @@ public class LoginActivity extends AppCompatActivity {
                         Utils.dismissProgressDialog();
                         if (response.body() != null) {
 
+
                             Customer customer = response.body().getData().getCustomer();
                             if (customer.getRoleID().equalsIgnoreCase("3") || (customer.getRoleID().equalsIgnoreCase("1"))) {
-                                Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
-                                startActivity(intent);
-                                finish();
-                                String Mobile=customer.getMobileNo();
-                                String Email=customer.getUserName();
+                                intent = new Intent(LoginActivity.this, DashboardActivity.class);
 
-                                SamsPrefs.putString(getApplicationContext(),"mobileNumber",Mobile);
-                                SamsPrefs.putString(getApplicationContext(),"emailId",Email);
+                            } else if (customer.getRoleID().equalsIgnoreCase("2")) {
+                                intent = new Intent(LoginActivity.this, BookRequestActivity.class);
                             }
-                            else if (customer.getRoleID().equalsIgnoreCase("2")){
+                            SamsPrefs.putBoolean(LoginActivity.this, Constants.LOGGEDIN, true);
 
-                                Intent intent = new Intent(LoginActivity.this, BookRequestActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-
-
-
-
+                            SamsPrefs.putString(getApplicationContext(), Constants.CUST_ID, customer.getLoginID());
+                            SamsPrefs.putString(getApplicationContext(), Constants.ROLE, customer.getRoleID());
+                            SamsPrefs.putString(getApplicationContext(), Constants.MOBILE_NUMBER, customer.getMobileNo());
+                            SamsPrefs.putString(getApplicationContext(), Constants.NAME, customer.getUserName());
+                            SamsPrefs.putString(getApplicationContext(), Constants.EMAIL, emailId.getText().toString());
+                            SamsPrefs.putString(getApplicationContext(), Constants.CTYPE_ID, customer.getCustomerTypeID());
+                            startActivity(intent);
 
                         }
 

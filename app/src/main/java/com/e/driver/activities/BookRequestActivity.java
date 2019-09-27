@@ -1,18 +1,17 @@
 package com.e.driver.activities;
 
 import android.app.DatePickerDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.MotionEvent;
+import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.e.driver.R;
 import com.e.driver.adapters.CategoryBookingAdapter;
@@ -26,15 +25,15 @@ import com.e.driver.models.SubCategory.SubCategoryResponse;
 import com.e.driver.models.TimeSlote.TimeSloteResponse;
 import com.e.driver.models.cities.CityListResponce;
 import com.e.driver.retrofit.RestClient;
+import com.e.driver.utils.Constants;
 import com.e.driver.utils.SamsPrefs;
 import com.e.driver.utils.Utils;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -75,9 +74,26 @@ public class BookRequestActivity extends AppCompatActivity {
     private String stateName, state_id;
     private String cityName, city_id;
     private String slotName, slot_id;
-    private Toolbar toolbar;
-    private TextView mtitle;
-    private ImageView imageViewTool;
+    private DatePickerDialog picker;
+
+    String cust_id;
+    String cust_name;
+    String cust_email;
+    String cust_login_mob;
+    String cust_alter_mob;
+    String ctype_id;
+    String cust_address;
+    String cust_landmark;
+    String cust_pincode;
+    String price;
+    String prime_member_discount = "NO";
+    String booking_date;
+    String time_slot_id;
+    String created_by = "";//blank
+    String modified_by = "";//blank
+    String service_category_id;
+    String service_list_id;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,50 +101,109 @@ public class BookRequestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_request);
         getSupportActionBar().hide();
         ButterKnife.bind(this);
+
+        prepopulateData();
+
+
         getAllcategories();
         getSelectState();
         getTimeSlot();
 
-        toolbar=findViewById(R.id.toolbar_about);
-        mtitle=toolbar.findViewById(R.id.toolbar_title);
-        imageViewTool=toolbar.findViewById(R.id.ivBackArrow);
-        mtitle.setText("Booking Request");
-        imageViewTool.setOnClickListener(new View.OnClickListener() {
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                onBackPressed();
+            public void onClick(View v) {
+                if (validateInputs()){
+                    bookService();
+                }
             }
         });
-
-
-        calendar = Calendar.getInstance();
-        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+        choseDate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, monthOfYear);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel();
-            }
-        };
-
-        choseDate.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                new DatePickerDialog(BookRequestActivity.this, date, calendar.get(Calendar.YEAR),
-                        calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-                return false;
+            public void onClick(View v) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                picker = new DatePickerDialog(BookRequestActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                choseDate.setText((monthOfYear + 1) + "/" + dayOfMonth + "/" + year);
+                                booking_date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                            }
+                        }, year, month, day);
+                picker.getDatePicker().setMinDate(System.currentTimeMillis());
+                picker.show();
             }
         });
+    }
+
+    private boolean validateInputs() {
+        cust_login_mob = enterMobile.getText().toString();
+        cust_alter_mob = alterMobileNum.getText().toString();
+        booking_date = choseDate.getText().toString();
+        cust_email = enterEmail.getText().toString();
+        cust_name = enterName.getText().toString();
+        cust_address = cust_landmark = enterLandmark.getText().toString();
+        cust_pincode = enterPincode.getText().toString();
+        if (TextUtils.isEmpty(cust_id)) {
+            Toast.makeText(this, "Please login first", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(cust_name)) {
+            Toast.makeText(this, "Please enter name", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if (TextUtils.isEmpty(cust_email)) {
+            Toast.makeText(this, "Please enter email", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if (TextUtils.isEmpty(cust_login_mob)) {
+            Toast.makeText(this, "Please enter mobile", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(cust_alter_mob)) {
+            Toast.makeText(this, "Please enter alternate mobile", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(cust_address)) {
+            Toast.makeText(this, "Please enter address", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(cust_landmark)) {
+            Toast.makeText(this, "Please enter landmark", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(cust_pincode)) {
+            Toast.makeText(this, "Please enter pincode", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(booking_date)) {
+            Toast.makeText(this, "Please enter booking date", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
+    }
+
+    private void prepopulateData() {
+        cust_id = "" + SamsPrefs.getString(this, Constants.CUST_ID);
+        cust_name = "" + SamsPrefs.getString(this, Constants.NAME);
+        cust_login_mob = "" + SamsPrefs.getString(this, Constants.MOBILE_NUMBER);
+        cust_email = "" + SamsPrefs.getString(this, Constants.EMAIL);
+        ctype_id = "" + SamsPrefs.getString(this, Constants.CTYPE_ID);
+        enterName.setText(cust_name);
+        enterMobile.setText(cust_login_mob);
+        enterEmail.setText(cust_email);
 
     }
 
-
-    private void updateLabel() {
-        String myFormat = "MM/dd/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.UK);
-        choseDate.setText(sdf.format(calendar.getTime()));
-    }
 
     private void getTimeSlot() {
 
@@ -150,6 +225,7 @@ public class BookRequestActivity extends AppCompatActivity {
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                 slotName = stateResponse.getData().getTimeSlots().get(position).getTimeSlotName();
                                 slot_id = stateResponse.getData().getTimeSlots().get(position).getTimeSlotId();
+                                time_slot_id = slot_id;
                             }
 
                             @Override
@@ -263,6 +339,7 @@ public class BookRequestActivity extends AppCompatActivity {
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                 categoryName = serviceResponse.getData().getCategories().get(position).getCategoryName();
                                 cat_id = serviceResponse.getData().getCategories().get(position).getCategoryId();
+                                service_category_id = cat_id;
                                 getSubCategory(cat_id);
                             }
 
@@ -301,6 +378,8 @@ public class BookRequestActivity extends AppCompatActivity {
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                 subCategoryName = subCategoryResponse.getData().getServiceList().get(position).getServiceName();
                                 sub_cat_id = subCategoryResponse.getData().getServiceList().get(position).getServiceListId();
+                                price = subCategoryResponse.getData().getServiceList().get(position).getPrice();
+                                service_list_id = sub_cat_id;
                             }
 
                             @Override
@@ -320,5 +399,50 @@ public class BookRequestActivity extends AppCompatActivity {
 
     }
 
+
+    //http://samarthansapi.the-sams.com/api/Booking/BookService?=2&
+// =Pushpendra&
+// =pushpendra@gmail.com
+// &=8445573535
+// &=7599333614
+// &=1
+// &=Bareilly
+// &=Near Hartman College
+// &=243122
+// &=1
+// &=1
+// &=199&
+// =NO
+// &=09/24/2019
+// &=1&
+// =2
+//
+//
+//
+// &=2
+// &=1
+// &=1
+    private void bookService() {
+
+        Utils.showProgressDialog(BookRequestActivity.this);
+        RestClient.bookService(cust_id, cust_name, cust_email, cust_login_mob, cust_alter_mob,
+                ctype_id, cust_address, cust_landmark, cust_pincode, city_id, state_id, price,
+                prime_member_discount, booking_date, time_slot_id, "2", "2",
+                service_category_id, service_list_id, new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Utils.dismissProgressDialog();
+                        Log.d("Booking Response", response.body().toString());
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Utils.dismissProgressDialog();
+
+                    }
+                });
+
+
+    }
 
 }
