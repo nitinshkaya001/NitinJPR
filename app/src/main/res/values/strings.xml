@@ -15,4 +15,7 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Help</string>
     <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="new_booking">New Booking Request</string>
+    <string name="title_activity_dash_board_newactivity">DashBoardNewactivity</string>
+    <string name="contact_top_text">Please use any of the following mode get touch with us</string>
 </resources>

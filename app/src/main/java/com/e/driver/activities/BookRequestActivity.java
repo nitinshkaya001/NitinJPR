@@ -3,8 +3,10 @@ package com.e.driver.activities;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -57,6 +59,9 @@ public class BookRequestActivity extends AppCompatActivity {
     EditText alterMobileNum;
     @BindView(R.id.enterLandmark)
     EditText enterLandmark;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.enterPincode)
     EditText enterPincode;
     @BindView(R.id.choseState)
@@ -99,8 +104,8 @@ public class BookRequestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_request);
-        getSupportActionBar().hide();
         ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
 
         prepopulateData();
 
@@ -112,7 +117,7 @@ public class BookRequestActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (validateInputs()){
+                if (validateInputs()) {
                     bookService();
                 }
             }
@@ -202,6 +207,16 @@ public class BookRequestActivity extends AppCompatActivity {
         enterMobile.setText(cust_login_mob);
         enterEmail.setText(cust_email);
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        onBackPressed();
+
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -432,12 +447,15 @@ public class BookRequestActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         Utils.dismissProgressDialog();
+                        Toast.makeText(BookRequestActivity.this, "Service booked successfully", Toast.LENGTH_LONG).show();
                         Log.d("Booking Response", response.body().toString());
+                        finish();
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         Utils.dismissProgressDialog();
+                        Toast.makeText(BookRequestActivity.this, "Unable to book service, please try again later", Toast.LENGTH_LONG).show();
 
                     }
                 });

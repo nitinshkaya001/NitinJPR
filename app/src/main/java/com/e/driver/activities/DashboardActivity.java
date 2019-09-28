@@ -62,6 +62,7 @@ public class DashboardActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home,
                 R.id.nav_mybooking,
+                R.id.nav_newbooking,
                 R.id.nav_prime_member,
                 R.id.nav_rateus, R.id.nav_share, R.id.nav_help)
                 .setDrawerLayout(drawer)
@@ -78,6 +79,11 @@ public class DashboardActivity extends AppCompatActivity {
                 }
                 if (destination.getId()==R.id.nav_mybooking){
                     Toast.makeText(DashboardActivity.this, "My Booking", Toast.LENGTH_SHORT).show();
+                }
+
+                if (destination.getId()==R.id.nav_newbooking){
+                Intent intent = new Intent(DashboardActivity.this,BookRequestActivity.class);
+                startActivity(intent);
                 }
                 if (destination.getId()==R.id.nav_rateus){
 

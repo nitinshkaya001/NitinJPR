@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        getSupportActionBar().hide();
+       // getSupportActionBar().hide();
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +88,8 @@ public class LoginActivity extends AppCompatActivity {
                             SamsPrefs.putString(getApplicationContext(), Constants.EMAIL, emailId.getText().toString());
                             SamsPrefs.putString(getApplicationContext(), Constants.MOBILE_NUMBER, edtMobNumber.getText().toString());
                             startActivity(intent);
+                            overridePendingTransition(R.anim.enter, R.anim.exit);
+
                         } else {
                             Toast.makeText(LoginActivity.this, "Enter valid otp", Toast.LENGTH_SHORT).show();
                         }
@@ -136,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             Customer customer = response.body().getData().getCustomer();
                             if (customer.getRoleID().equalsIgnoreCase("3") || (customer.getRoleID().equalsIgnoreCase("1"))) {
-                                intent = new Intent(LoginActivity.this, DashboardActivity.class);
+                                intent = new Intent(LoginActivity.this, DashBoardNewactivity.class);
 
                             } else if (customer.getRoleID().equalsIgnoreCase("2")) {
                                 intent = new Intent(LoginActivity.this, BookRequestActivity.class);
@@ -150,6 +152,8 @@ public class LoginActivity extends AppCompatActivity {
                             SamsPrefs.putString(getApplicationContext(), Constants.EMAIL, emailId.getText().toString());
                             SamsPrefs.putString(getApplicationContext(), Constants.CTYPE_ID, customer.getCustomerTypeID());
                             startActivity(intent);
+                            overridePendingTransition(R.anim.enter, R.anim.exit);
+
 
                         }
 

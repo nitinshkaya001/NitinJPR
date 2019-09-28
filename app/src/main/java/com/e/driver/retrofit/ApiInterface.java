@@ -7,6 +7,7 @@ import com.e.driver.models.LoginEmail.LoginEmailResponse;
 import com.e.driver.models.LoginMobile.LoginMobileNumberResponse;
 import com.e.driver.models.SubCategory.SubCategoryResponse;
 import com.e.driver.models.TimeSlote.TimeSloteResponse;
+import com.e.driver.models.bookings.Bookings;
 import com.e.driver.models.cities.CityListResponce;
 import com.e.driver.models.submit_otp.LoginMobileOtpResponse;
 
@@ -37,6 +38,10 @@ public interface ApiInterface {
 
     @GET("api/Account/Login")
     Call<LoginEmailResponse> loginEmail(@Query("email") String email, @Query("password") String password);
+
+
+    @GET("api/Booking/BookingHistory")
+    Call<Bookings> getCustomerBookings(@Query("id") String id);
 
     @GET("api/Customer/GetTimeSlot")
     Call<TimeSloteResponse> getTime();

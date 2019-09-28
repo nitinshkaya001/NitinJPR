@@ -34,7 +34,6 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnClickCat
 
     ServiceResponse serviceResponse;
     RecyclerView rv_service;
-    private Button btn_CategorySubmit;
     private Context context;
     private CategoryAdapter categoryAdapter;
 
@@ -44,7 +43,6 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnClickCat
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
          context=getActivity();
-         btn_CategorySubmit=root.findViewById(R.id.btn_cat_Submit);
         rv_service = root.findViewById(R.id.rv_service);
         serviceResponse = new ServiceResponse();
         rv_service.setLayoutManager(new GridLayoutManager(context, 2));
@@ -58,16 +56,6 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnClickCat
         } else {
             Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_SHORT).show();
         }
-
-        btn_CategorySubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent=new Intent(getActivity(), BookRequestActivity.class);
-                startActivity(intent);
-
-            }
-        });
 
         return root;
     }
@@ -98,9 +86,11 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnClickCat
     public void onCategoryClick(int position) {
         Intent intent = new Intent(context, SubCategoryActivity.class);
         intent.putExtra(Constants.CAT_ID,serviceResponse.getData().getCategories().get(position).getCategoryId());
-        SamsPrefs.putString(getActivity(),"categoryName",serviceResponse.getData().getCategories().get(position).getCategoryName());
+        SamsPrefs.putString(getActivity(),Constants.CATEGORY,serviceResponse.getData().getCategories().get(position).getCategoryName());
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
+
 
     }
 }

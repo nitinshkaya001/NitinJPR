@@ -17,15 +17,5 @@
         />
 
     </LinearLayout>
-    <Button
-        android:id="@+id/btn_cat_Submit"
-        android:background="@color/colorLightBlue"
-        android:textColor="#FAFAFA"
-        android:layout_alignParentBottom="true"
-        android:text="Book Now"
-        android:textAllCaps="false"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

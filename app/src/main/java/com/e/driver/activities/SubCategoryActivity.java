@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,29 +31,32 @@ public class SubCategoryActivity extends AppCompatActivity implements SubCategor
     SubCategoryResponse subCategoryResponse;
     private SubCategoryAdapter subCategoryAdapter;
     String cat_id;
-   private Toolbar toolbar;
+     private Toolbar toolbar;
     private TextView mtitle;
     private ImageView imageViewTool;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_category);
-        getSupportActionBar().hide();
 
-        toolbar=findViewById(R.id.toolbar_about);
-        mtitle=toolbar.findViewById(R.id.toolbar_title);
-        imageViewTool=toolbar.findViewById(R.id.ivBackArrow);
+        toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        if (getIntent().hasExtra(Constants.CATEGORY)){
+            toolbar.setTitle(getIntent().getStringExtra(Constants.CATEGORY));
+        }
+//        imageViewTool=toolbar.findViewById(R.id.ivBackArrow);
         rv_SubCategory = findViewById(R.id.rv_SubCategory);
 
-        mtitle.setText("Sub Category");
-        imageViewTool.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                onBackPressed();
-
-            }
-        });
+//        imageViewTool.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                onBackPressed();
+//
+//            }
+//        });
 
         subCategoryResponse = new SubCategoryResponse();
         rv_SubCategory.setLayoutManager(new GridLayoutManager(SubCategoryActivity.this,2));
@@ -92,6 +96,16 @@ public class SubCategoryActivity extends AppCompatActivity implements SubCategor
             }
         });
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        onBackPressed();
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

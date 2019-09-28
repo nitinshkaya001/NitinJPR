@@ -15,17 +15,21 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        getSupportActionBar().hide();
+       // getSupportActionBar().hide();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                if (SamsPrefs.getBoolean(SplashActivity.this, Constants.LOGGEDIN)){
-                   Intent intent = new Intent(SplashActivity.this,DashboardActivity.class);
+                   Intent intent = new Intent(SplashActivity.this,DashBoardNewactivity.class);
                    startActivity(intent);
+                   overridePendingTransition(R.anim.enter, R.anim.exit);
+
                    finish();
                }else{
                    Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
                    startActivity(intent);
+                   overridePendingTransition(R.anim.enter, R.anim.exit);
+
                    finish();
                }
 

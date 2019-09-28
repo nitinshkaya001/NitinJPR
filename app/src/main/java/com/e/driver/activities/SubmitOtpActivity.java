@@ -68,7 +68,7 @@ public class SubmitOtpActivity extends AppCompatActivity {
                     Utils.dismissProgressDialog();
                     LoginMobileOtpResponse loginMobileOtpResponse = response.body();
 
-                    intent = new Intent(SubmitOtpActivity.this, DashboardActivity.class);
+                    intent = new Intent(SubmitOtpActivity.this, DashBoardNewactivity.class);
                     SamsPrefs.putBoolean(SubmitOtpActivity.this, Constants.LOGGEDIN, true);
                     SamsPrefs.putString(SubmitOtpActivity.this, Constants.MOBILE_NUMBER, loginMobileOtpResponse.getData().getCustomer().getMobileNo());
                     SamsPrefs.putString(SubmitOtpActivity.this, Constants.ROLE, loginMobileOtpResponse.getData().getCustomer().getRoleID());

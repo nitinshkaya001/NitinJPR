@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.e.driver">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/splash"
@@ -10,17 +15,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activities.JoiPrimeMembershipActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".activities.DashboardActivity"
-            android:label="@string/title_activity_dashboard"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:name=".activities.DashBoardNewactivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+
+
         <activity
             android:name=".activities.SubmitOtpActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".activities.LoginActivity" />
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activities.LoginActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.BookRequestActivity"
+            android:label="New Booking Request"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SplashActivity"
@@ -30,19 +41,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".activities.SubCategoryActivity"
+            android:label="Services"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>
